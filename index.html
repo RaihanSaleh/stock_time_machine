@@ -8,14 +8,48 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <header>
+    </header>
 
+    <Main>
+        
+        <div id='portfolioSection'>
+            <div id='portfolioValue'></div>
+            <div id='buyingPower'></div>
+            <div id='portfolioChart'></div>
+        </div>
 
+        <ul id='portfolioList'>
+            
+        </ul>
 
+        <div class='lookUpSection'>
 
+            <div class='lookupInputs'>
+                <form id="lookupInputs">
+                    <input type="text" id="stockSelector" placeholder="enter stock ticker" value="GME">
+                    <input type="date" id="dateSelector" value='' min=''>
+                </form>
+            </div>
+            
+            
+            <div class='buySection'>
+                <form>
+                    <input type="number" id="stockAmmount" placeholder="# of shares">
+                    <button id="buyBtn">Buy</button>
+                </form>
+            </div>
+       
+            <div class='stockChart'></div>
+        </div>
 
+    </Main>
+
+    <footer>
+    </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+<script src="stock-service.js"></script>
 <script src="scripts.js"></script>
 </body>
 </html>
