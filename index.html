@@ -9,12 +9,17 @@
 </head>
 <body>
     <Main>
+        <h1 id="portfolioValue"></h1>
         <div>
-            <h1 id="portfolioValue"></h1>
+            <button id="updatePurchasedStocksList">Update Portfolio List</button>
+            <ul id="purchasedStocksList">
+            </ul>
+        </div>
+
+        <div>
             <button id="updatePortfolioValue">Update Portfolio Value</button>
             <br>
-
-            <input type="text" id="stockTicker" value="GME" placeholder="enter stock ticker">
+            <input type="text" id="stockTicker" value="" placeholder="enter stock ticker">
             <input type="date" id="historicalDate" value="">
             <button id="getHistoricalDayPrice">Get Price</button>
             <br>
