@@ -61,6 +61,7 @@ document.getElementById('getHistoricalDayPrice').addEventListener('click', getHi
 
 async function getHistoricalDayPriceClickEvent(e) {
   if (document.getElementById('stockTicker').value.toUpperCase() === "DMX") {
+    document.getElementById('historicalDayPrice').value = 0
     return alert('X GON GIVE IT TO YOU')
   }
   getHistoricalDayPrice()
@@ -78,7 +79,6 @@ async function getHistoricalDayPrice(callback=false) {
   fetch(url)
   .then(result => result.json())
   .then(dailyData => {
-    console.log(`dailyData: ${dailyData}`)
     for (let dayData of dailyData) {
       if (dayData.date === historicalDate) {
         historicalDayPrice = dayData.close
@@ -94,6 +94,7 @@ async function getHistoricalDayPrice(callback=false) {
   .catch(err => {
     console.log('something went wrong', err)
   })
+
 }
 
 
