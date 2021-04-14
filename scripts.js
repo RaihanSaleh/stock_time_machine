@@ -1,5 +1,9 @@
 const token = 'Tpk_219118a840804c0e83a9d0c7fbc7e1bc'             // need to update these for the real app
 const baseURL = 'https://sandbox.iexapis.com/stable/stock'       // need to update these for the real app
+const usDollar = Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+})
 
 class Stock {
   constructor(stockTicker, purchaseDate, pricePerShare, numOfShares) {
@@ -28,7 +32,7 @@ class Portfolio {
       throw "FAILED TO BUY\nMust buy at least 1 share"
     } 
     if (this.buyingPower < purchasedStock.getTotalPurchasedPrice()) {
-      throw `FAILED TO BUY\nNot Enough Buying Power\nNeed additional $${(purchasedStock.getTotalPurchasedPrice() - this.buyingPower).toFixed(2)}`
+      throw `FAILED TO BUY\nNot Enough Buying Power\nNeed additional ${(usDollar.format(purchasedStock.getTotalPurchasedPrice()-this.buyingPower))}`
     }
     if (purchasedStock.stockTicker === "DMX") {
       throw "X GON GIVE IT TO YA"
@@ -38,6 +42,7 @@ class Portfolio {
     this.purchasedStocks.push(purchasedStock)
     this.stockTickers.push(purchasedStock.stockTicker)
     this.sharesPerStock[purchasedStock.stockTicker] = purchasedStock.numOfShares
+    document.getElementById('buyingPower').innerText = `Buying Power: ${usDollar.format(portfolio.buyingPower)}`
   }
   getPurchasedStocksArray(){
     return this.purchasedStocks
@@ -65,10 +70,15 @@ async function getHistoricalDayPriceClickEvent(e) {
 }
 
 async function getHistoricalDayPrice(callback=false) {
-  let stockTicker  = document.getElementById('stockTicker').value.toUpperCase()
-  let historicalDate  = document.getElementById('historicalDate').value
-  let url = `${baseURL}/${stockTicker}/chart/3m?filter=symbol,date,close&token=${token}`
   let historicalDayPrice
+  let stockTicker = document.getElementById('stockTicker').value.toUpperCase()
+  let historicalDate = document.getElementById('historicalDate').value
+  let todaysDate = new Date()
+  let historicalDateDateFormat = new Date(historicalDate)
+  let numOfDays = todaysDate - historicalDateDateFormat
+  numOfDays = Math.floor(numOfDays / (1000 * 3600 * 24))
+
+  let url = `${baseURL}/${stockTicker}/chart/${numOfDays}d?filter=date,close&token=${token}`
   
   console.log(`stockTicker: ${stockTicker}`)
   console.log(`historicalDate: ${historicalDate}`)
@@ -136,7 +146,9 @@ async function updatePortfolioValue() {
     portfolioValue += portfolio.buyingPower
     console.log(`portfolioValue: ${portfolioValue}`)
 
-    document.getElementById('portfolioValue').innerText = `$${portfolioValue.toFixed(2)}`
+    document.getElementById('portfolioValue').innerText = usDollar.format(portfolioValue)
+    document.getElementById('buyingPower').innerText = `Buying Power: ${usDollar.format(portfolio.buyingPower)}`
+
   })
   .catch(err => {
     console.log('something went wrong', err)
@@ -151,6 +163,7 @@ document.getElementById('updatePurchasedStocksList').addEventListener('click', u
 function updatePurchasedStocksList(){
   let ulTag = document.getElementById('purchasedStocksList')
   let stockTickers = portfolio.getStockTickers()
+  ulTag.innerHTML = ""
   
   for (let stockTicker of stockTickers) {
     let newLi = document.createElement('li')
