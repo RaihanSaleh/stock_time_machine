@@ -4,32 +4,42 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/admin-lte@3.1/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="style.css">
     <title>Document</title>
 </head>
-<body>
-    <Main>
-        <button id="updatePortfolioValue">Update Portfolio Value</button>
-        <h1 id="portfolioValue"></h1>
-        <div>
-            <button id="updatePurchasedStocksList">Update Portfolio List</button>
+<body> 
+    <div class="parentGrid">
+        <header class="header">
+            <button id="updatePortfolioValue" class="btns" title="Update Portfolio Value"><i class="fa fa-refresh"></i></button>
+            <h1 id="portfolioValue">$100,000.00</h1>
+        </header>
+        
+        <div class="portfolioList">
+            <button class="btns" id="updatePurchasedStocksList">Update Portfolio List</button>
+            <h3>Stocks</h3>
             <ul id="purchasedStocksList">
             </ul>
         </div>
 
-        <div>
-            <input type="text" id="stockTicker" value="" placeholder="enter stock ticker">
-            <input type="date" id="historicalDate" value="">
-            <button id="getHistoricalDayPrice">Get Price</button>
-            <br>
-            <input type="text" id="historicalDayPrice" value="" placeholder="historical price" readonly>
-            <input type="number" id="sharesToBuy" value="" placeholder="# of shares">
-            <button id="buyButton">Buy</button>
-        </div>
-    </Main>
+        <div class="portfolioChart">
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
-    <script src="scripts.js"></script>
+        </div>
+        
+        <Main>
+            <div class="buySection">
+                <input type="text" class="inputBoxes" id="stockTicker" value="" placeholder="enter stock ticker" size="20">
+                <input type="date" class="inputBoxes" id="historicalDate" value="" size="20">
+                <button class="btns" id="getHistoricalDayPrice">Get Price</button>
+                <br>
+                <input type="text" class="inputBoxes" id="historicalDayPrice" value="" placeholder="historical price" size="20" readonly>
+                <input type="number" class="inputBoxes" id="sharesToBuy" value="" placeholder="# of shares" size="20">
+                <button class="btns" id="buyButton">Buy</button>
+            </div>
+        </Main>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.0.2/dist/chart.min.js"></script>
+<script src="scripts.js"></script>
 </body>
 </html>

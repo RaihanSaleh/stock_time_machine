@@ -31,10 +31,7 @@ class Portfolio {
       throw `FAILED TO BUY\nNot Enough Buying Power\nNeed additional $${(purchasedStock.getTotalPurchasedPrice() - this.buyingPower).toFixed(2)}`
     }
     if (purchasedStock.stockTicker === "DMX") {
-      this.purchasedStocks.push(purchasedStock)
-      this.stockTickers.push(purchasedStock.stockTicker)
-      this.sharesPerStock[purchasedStock.stockTicker] = purchasedStock.numOfShares
-      throw "X GON GIVE IT TO YOU"
+      throw "X GON GIVE IT TO YA"
     }
 
     this.buyingPower -= purchasedStock.getTotalPurchasedPrice()
@@ -62,7 +59,7 @@ document.getElementById('getHistoricalDayPrice').addEventListener('click', getHi
 async function getHistoricalDayPriceClickEvent(e) {
   if (document.getElementById('stockTicker').value.toUpperCase() === "DMX") {
     document.getElementById('historicalDayPrice').value = 0
-    return alert('X GON GIVE IT TO YOU')
+    return alert('X GON GIVE IT TO YA')
   }
   getHistoricalDayPrice()
 }
@@ -94,7 +91,6 @@ async function getHistoricalDayPrice(callback=false) {
   .catch(err => {
     console.log('something went wrong', err)
   })
-
 }
 
 
@@ -133,8 +129,6 @@ async function updatePortfolioValue() {
   fetch(url)
   .then(result => result.json())
   .then(stockQuotes => {
-    console.log(stockQuotes)
-    
     let portfolioValue = 0
     for (let stockTicker of stockTickers) {
       portfolioValue += stockQuotes[stockTicker]["quote"]["latestPrice"] * portfolio.getSharesPerStock(stockTicker)
@@ -151,6 +145,7 @@ async function updatePortfolioValue() {
 
 
 // ===== Phase Four: Render Portfolio List On-Screen ===== //
+// can be part of the buy stock function
 document.getElementById('updatePurchasedStocksList').addEventListener('click', updatePurchasedStocksList)
 
 function updatePurchasedStocksList(){
@@ -166,3 +161,6 @@ function updatePurchasedStocksList(){
 
 
 // ===== Phase Five: Create the Portfolio Chart ===== //
+
+
+// ===== Phase Six: Create Stock Chart and display when get price is clicked ===== //
