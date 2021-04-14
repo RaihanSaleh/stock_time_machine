@@ -80,8 +80,8 @@ async function getHistoricalDayPrice(callback=false) {
 
   let url = `${baseURL}/${stockTicker}/chart/${numOfDays}d?filter=date,close&token=${token}`
   
-  console.log(`stockTicker: ${stockTicker}`)
-  console.log(`historicalDate: ${historicalDate}`)
+  // console.log(`stockTicker: ${stockTicker}`)
+  // console.log(`historicalDate: ${historicalDate}`)
   
   fetch(url)
   .then(result => result.json())
@@ -89,7 +89,7 @@ async function getHistoricalDayPrice(callback=false) {
     for (let dayData of dailyData) {
       if (dayData.date === historicalDate) {
         historicalDayPrice = dayData.close
-        console.log(`historicalDayPrice: ${historicalDayPrice}`)
+        // console.log(`historicalDayPrice: ${historicalDayPrice}`)
         document.getElementById('historicalDayPrice').value = historicalDayPrice
         break
       }
@@ -115,7 +115,7 @@ async function makePurchase(){
     let numOfShares = document.getElementById('sharesToBuy').value
     
     let purchasedStock = new Stock(stockTicker, purchaseDate, pricePerShare, numOfShares)
-    console.log(purchasedStock)
+    // console.log(purchasedStock)
     
     try {
       portfolio.addStock(purchasedStock)
@@ -144,7 +144,7 @@ async function updatePortfolioValue() {
       portfolioValue += stockQuotes[stockTicker]["quote"]["latestPrice"] * portfolio.getSharesPerStock(stockTicker)
     }
     portfolioValue += portfolio.buyingPower
-    console.log(`portfolioValue: ${portfolioValue}`)
+    // console.log(`portfolioValue: ${portfolioValue}`)
 
     document.getElementById('portfolioValue').innerText = usDollar.format(portfolioValue)
     document.getElementById('buyingPower').innerText = `Buying Power: ${usDollar.format(portfolio.buyingPower)}`

@@ -28,6 +28,7 @@ body {
     border: lightslategray;
     font-weight: bold;
     display: inline-table;
+    padding-left: 10px;
 }
 .buySection{
     grid-row: 2 / span 3;
